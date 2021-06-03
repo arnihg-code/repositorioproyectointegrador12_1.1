@@ -101,7 +101,7 @@ public class srvUsuario extends HttpServlet {
             sesion.setAttribute("vendedor", usuario);
             this.getServletConfig().getServletContext().getRequestDispatcher("/Vistas/Trabajador.jsp").forward(request, response);
         } else {
-            request.setAttribute("msje", "Credenciales Incorrectas");
+            request.setAttribute("msje", " Credenciales Incorrectas");
             request.getRequestDispatcher("Identificar.jsp").forward(request, response);
         }
 

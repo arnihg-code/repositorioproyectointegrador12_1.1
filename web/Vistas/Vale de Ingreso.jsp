@@ -1,3 +1,9 @@
+<%-- 
+    Document   : Vale de Ingreso
+    Created on : 02-jun-2021, 23:01:37
+    Author     : SUITE
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Conexion" %>
 <%@page import="Modelo.DAOUSUARIO" %>
@@ -12,7 +18,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sistema Inventario| Inicio</title>
+        <title>Sistema Bodega| Inicio</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
