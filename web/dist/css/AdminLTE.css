@@ -10,6 +10,8 @@
  * Core: General Layout Style
  * -------------------------
  */
+
+/*.btn-facebook*/
 html,
 body {
   height: 100%;
@@ -3717,25 +3719,25 @@ fieldset[disabled] .btn-dropbox.focus {
 }
 .btn-facebook {
   color: #fff;
-  background-color: #3b5998;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook:focus,
 .btn-facebook.focus {
   color: #fff;
-  background-color: #2d4373;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook:hover {
   color: #fff;
-  background-color: #2d4373;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook:active,
 .btn-facebook.active,
 .open > .dropdown-toggle.btn-facebook {
   color: #fff;
-  background-color: #2d4373;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook:active:hover,
@@ -3748,7 +3750,7 @@ fieldset[disabled] .btn-dropbox.focus {
 .btn-facebook.active.focus,
 .open > .dropdown-toggle.btn-facebook.focus {
   color: #fff;
-  background-color: #23345a;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook:active,
@@ -3765,11 +3767,11 @@ fieldset[disabled] .btn-facebook:focus,
 .btn-facebook.disabled.focus,
 .btn-facebook[disabled].focus,
 fieldset[disabled] .btn-facebook.focus {
-  background-color: #3b5998;
+  background-color: #f20b0b;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .btn-facebook .badge {
-  color: #3b5998;
+  color: #f20b0b;
   background-color: #fff;
 }
 .btn-flickr {
