@@ -1,6 +1,6 @@
 package Modelo;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,7 +10,7 @@ import java.util.List;
 public class DAOUSUARIO extends Conexion {
 
     public usuario identificar(usuario user) throws Exception {
-
+//comentario
         usuario usu = null;
         Conexion con;
         Connection cn = null;
