@@ -11,6 +11,7 @@ public class DAOUSUARIO extends Conexion {
 
     public usuario identificar(usuario user) throws Exception {
 //comentario
+//nuevo mensaje
         usuario usu = null;
         Conexion con;
         Connection cn = null;
