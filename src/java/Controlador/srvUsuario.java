@@ -6,8 +6,10 @@
 package Controlador;
 
 import Modelo.DAOUSUARIO;
+import Modelo.DAOVALEDEINGRESO;
 import Modelo.Producto;
 import Modelo.usuario;
+import Modelo.valeIngreso;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -39,6 +41,9 @@ public class srvUsuario extends HttpServlet {
                         break;
                     case "listarProductos":
                         listarProductos(request, response);
+                        break;
+                    case "listarValeIngreso":    
+                        listarValeIngreso(request, response);
                         break;
                     default:
                         response.sendRedirect("Identificar.jsp");
@@ -179,6 +184,58 @@ public class srvUsuario extends HttpServlet {
         
         
     }
+    
+    /*
+    private void mostrarValeingreso(HttpServletRequest request, HttpServletResponse response){
+        
+           try {
+            this.getServletConfig().getServletContext()
+                      .getRequestDispatcher("/Vistas/ValedeIngreso.jsp").forward(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("msje", "No se pudo realizar la peticion"+ex.getMessage());
+        }
+        
+        
+        
+        
+    }
+    */
+
+    private void listarValeIngreso(HttpServletRequest request, HttpServletResponse response) {
+       DAOVALEDEINGRESO dao = new DAOVALEDEINGRESO();
+       List<valeIngreso> vale1 = null;
+       try
+       {
+          vale1 = dao.listarValeIngreso();
+          request.setAttribute("valesdeingreso", vale1);
+           
+           
+       
+       }catch(Exception ex)
+       {
+       
+           request.setAttribute("msje", "No se listo los vales de ingreso" + ex.getMessage());
+           
+       }finally
+       {
+          dao = null;
+       }
+       try
+       {
+           this.getServletConfig().getServletContext()
+                   .getRequestDispatcher("/Vistas/ValedeIngreso.jsp").forward(request, response); ;
+           
+       }    
+       catch(Exception x)
+       {
+           request.setAttribute("msj", "no se relizo la peticion" + x.getMessage());
+       }    
+        
+        
+    }
+    
+    
+    
     
     
 

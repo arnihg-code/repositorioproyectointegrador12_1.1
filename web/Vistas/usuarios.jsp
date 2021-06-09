@@ -139,7 +139,7 @@
 
                         </li>
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Ventas</span>
+                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Mantenimientos</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -147,6 +147,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
                                 <li><a href="#"><i class="fa fa-tags"></i>Administrar Ventas</a></li>
+                                <li class="active"><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

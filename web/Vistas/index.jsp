@@ -101,9 +101,9 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                           <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-                        
-                           <br><br>
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+
+                            <br><br>
                         </div>
                         <div class="pull-left info">
                             <p>Bienvenido,${usuario.nombreUsuario} </p>
@@ -146,14 +146,15 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Ventas</span>
+                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Mantenimientos</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
-                                <li><a href="#"><i class="fa fa-tags"></i>Administrar Ventas</a></li>
+                                <li><a href=""><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
+                                <li><a href=""><i class="fa fa-tags"></i>Administrar Ventas</a></li>
+                                <li><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -177,7 +178,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                       
+
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
@@ -187,77 +188,77 @@
                 </section>
                 <!--
                 <section class="content">
-                    <!-- Small boxes (Stat box) 
-                    <div class="row">
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box 
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <h3>150</h3>
+                <!-- Small boxes (Stat box) 
+                <div class="row">
+                    <div class="col-lg-3 col-xs-6">
+                <!-- small box 
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>150</h3>
 
-                                    <p>Nuevos Clientes</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box 
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                    <p>Bounce Rate</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3>44</h3>
-
-                                    <p>User Registrations</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box 
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <h3>65</h3>
-
-                                    <p>Unique Visitors</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col 
+                        <p>Nuevos Clientes</p>
                     </div>
-                </section>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+                <!-- ./col 
+                <div class="col-lg-3 col-xs-6">
+                <!-- small box 
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                        <p>Bounce Rate</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+                <!-- ./col 
+                <div class="col-lg-3 col-xs-6">
+                <!-- small box
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>44</h3>
+
+                        <p>User Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+                <!-- ./col 
+                <div class="col-lg-3 col-xs-6">
+                <!-- small box 
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>65</h3>
+
+                        <p>Unique Visitors</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+                <!-- ./col 
+            </div>
+        </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
-            
-           
+
+
 
             <div class="control-sidebar-bg"></div>
         </div>
@@ -275,14 +276,33 @@
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
              user experience. -->
+
+        <!-- ESTE ES EL CODIGO DEL CHATBOT DE PRUEBA -->
+        <script>
+            window.watsonAssistantChatOptions = {
+                integrationID: "422c6e4e-cd37-4281-8050-235168c6b1b2", // The ID of this integration.
+                region: "us-south", // The region your integration is hosted in.
+                serviceInstanceID: "3fb8ae0f-ff6e-4e97-8ff4-66e40dfa0f75", // The ID of your service instance.
+                onLoad: function (instance) {
+                    instance.render();
+                }
+            };
+            setTimeout(function () {
+                const t = document.createElement('script');
+                t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+                document.head.appendChild(t);
+            });
+        </script>
+
+
     </body>
 </html>
 
-<%    
+<%
     } else {
-        
+
         response.sendRedirect("Identificar.jsp");
     }
-    
+
 
 %>
