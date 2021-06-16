@@ -1,10 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Modelo.Conexion" %>
-<%@page import="Modelo.DAOUSUARIO" %>
-<%@page import="Modelo.Producto" %>
-<%@page import="Modelo.Proveedores" %>
-<%@page import="Modelo.Conexion2" %>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     if (session.getAttribute("usuario") != null) {
@@ -23,9 +17,7 @@
         <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
         <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
-        <link href="swetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
-        
-        
+
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect. -->
@@ -60,14 +52,14 @@
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="dist/img/avatar.png" class="user-image" alt="User Image">
+                                    <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                     <span class="hidden-xs"> ${usuario.nombreUsuario}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
+                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                         <p>                    
                                             Bienvenido - ${usuario.nombreUsuario}
@@ -95,10 +87,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                          <!--  <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-                       
-                          <br><br>
-                        
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>Bienvenido,  ${usuario.nombreUsuario} </p>
@@ -123,7 +112,7 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li ><a href="#"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+                        <li><a href="#"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
                         <li class="treeview active">
                             <a href="#"><i class="glyphicon glyphicon-th-large"></i> <span>Registros</span>
                                 <span class="pull-right-container">
@@ -139,10 +128,9 @@
                                 <li><a href=""><i class="fa fa-user-plus"></i>Empleados</a></li>
                                 <li class="active"><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Usuarios</a></li>
                             </ul>
-
                         </li>
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Mantenimientos</span>
+                            <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Ventas</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -150,7 +138,6 @@
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
                                 <li><a href="#"><i class="fa fa-tags"></i>Administrar Ventas</a></li>
-                                <li class="active"><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -172,100 +159,97 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>Página usuarios</h1>
-                </section>
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <a href="srvUsuario?accion=nuevo" class="btn btn-success">
-                        <i class="fa fa-plus"></i> Nuevo usuario </a>
-
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Usuarios</li>
-                    </ol>
-                </section>
-
-                <section class="content">
-                    <div class="box">    
-                        <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Usuarios</h3>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
                         </div>
-                        <div class="box-body">
-                            <div class="table-responsive" >                                 
-                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaUsuarios" class="display">
-                                    <thead>
-                                        <tr>
-                                            <th>IDUsuario</th>
-                                            <th>Usuario</th>
-                                            <!--<th>Clave</th>-->
-                                            <th>Estado</th>
-                                            <th>Cargo</th>
-                                            <th>Acciones</th> 
-                                        </tr>
-                                    </thead>
-                                    <c:forEach var="user" items="${usuarios}" varStatus="iteracion">  <!--ese usaurio viene de el listado usuario en tu servlet-->                                                  
-                                        <tr>
-                                            <!--el nombre de ese nombreUsuario es igual a los atributos de la clase-->
-                                            <td>${iteracion.index + 1}</td>
-                                            <td>${user.nombreUsuario}</td>
-                                            <!--<td>{user.clave}</td>-->
-                                            <c:if test="${user.estado == true}">
-                                                <td><span class="badge bg-green active">Usuario Activo</span></td> 
-                                            </c:if>
-                                            <c:if test="${user.estado == false}">
-                                                <td><span class="badge bg-red active">Usuario Inactivo</span></td> 
-                                            </c:if>
-                                            <td>${user.cargo.nombreCargo}</td>
-                                            <td><a href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="leerUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
-                                                        <i class="fa fa-pencil"></i></button></a>
-                                                <!-- DESACTIVAR / ACTIVAR USUARIOS -->
-                                                <c:choose>
-                                                    <c:when test="${user.estado == true}">
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="desactivarUsuario" href="srvUsuario?cambiar=desactivar&cod=${user.id_usuario}" class="btn btn-danger"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
-                                                            <i class="fa fa-remove"></i></a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="activarUsuario" href="srvUsuario?cambiar=activar&cod=${user.id_usuario}" class="btn btn-primary" data-toggle="tooltip" title="Activar" data-original-title="Activar">
-                                                            <i class="glyphicon glyphicon-eye-open"></i></a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                <!-- ELIMINAR USUARIOS -->
-                                                <input type="hidden" id="codigo" value="${user.id_usuario}">
-                                                <a id="deleteUser" href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="eliminarUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-danger" data-toggle="tooltip"  title="Eliminar" data-original-title="Eliminar">
-                                                        <i class="fa fa-trash"></i></button></a>
-
-                                            </td>
-                                        </tr>                                                    
-                                    </c:forEach>                                               
-                                </table>
+                        <div class="col-md-3 hidden-xs"></div>
+                        <div class="col-xs-2 col-md-1">
+                        </div>
+                        <div class="col-xs-10 col-md-5 ">
+                            <div class="btn-group pull-right">
+                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
+                                    <i class="fa fa-align-justify"></i> Ver listado</a>                                              
                             </div>
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <!--Pie de página-->
-                        </div>
-                        <!-- /.box-footer-->
                     </div>
                 </section>
-                <!-- /.content -->
+                <section class="content">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-edit"></i> <h3 class="box-title">Actualizar  Usuario</h3>  
+                        </div>
+                        <form class="form-horizontal" action="srvUsuario?accion=actualizarUsuario" method="post">
+                            <input type="hidden" name="hCodigo" value="${usuario.id_usuario}">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nombre Usuario</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="nombre" type="text" class="form-control" placeholder="Pon tu nombre" name="txtNombre" maxlength="10"
+                                               value="${usuario.nombreUsuario}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Clave</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <input id="nombre" type="password" class="form-control" placeholder="Pon tu clave" name="txtClave" maxlength="10"
+                                               value="${usuario.clave}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Cargo</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                                        <select class="form-control"  name="cboCargo" autofocus=""  required="">
+                                            <option value="0">Seleccione un cargo</option>
+                                            <c:forEach items="${cargos}" var="car">
+                                                <option value="${car.codigo}"  
+                                                        <c:if test="${car.codigo == 
+                                                                      usuario.cargo.codigo}">
+                                                              selected
+                                                        </c:if>
+                                                        >${car.nombreCargo}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="chkEstado" 
+                                                       <c:out value="${usuario.estado == false ?
+                                                                       'unchecked' : 'checked'}"
+                                                              default="" />>Activo
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="reset" class="btn btn-danger"><i class="fa fa-close red"></i> Cancelar</button>
+                                <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success"><i class="fa fa-refresh"></i> Actualizar Usuario</button>
+
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </section> 
+
             </div>
-
-
-            
-            
-            
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
-            
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    Anything you want
+                </div>
+                <!-- Default to the left
+                <strong>Copyright &copy; 2020 <a href="#">IDAT</a>.</strong> Todos los derechos reservados. -->
+            </footer>
 
             <div class="control-sidebar-bg"></div>
         </div>
@@ -279,8 +263,7 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
-        <script src="swetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="js/funcionesUsuario.js" type="text/javascript"></script>
+
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
              user experience. -->
@@ -291,3 +274,4 @@
         response.sendRedirect("identificar.jsp");
     }
 %>
+

@@ -1,19 +1,29 @@
+
+
+
+
+
+
+<%--esta sera la vista del administrador--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Conexion" %>
 <%@page import="Modelo.DAOUSUARIO" %>
 <%@page import="Modelo.Producto" %>
 <%@page import="Modelo.Proveedores" %>
-<%@page import="Modelo.Conexion2" %>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--Ahora verificamos la sesion--%>
 <%
     if (session.getAttribute("usuario") != null) {
 %>
+
+
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sistema Inventario| Inicio</title>
+        <title>Sistema Bodega| Inicio</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -23,9 +33,7 @@
         <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
         <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
-        <link href="swetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
-        
-        
+
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect. -->
@@ -70,8 +78,8 @@
                                         <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
 
                                         <p>                    
-                                            Bienvenido - ${usuario.nombreUsuario}
-                                            <small>Usted es,${usuario.cargo.nombreCargo} </small>
+                                            Bienvenido - ${vendedor.nombreUsuario}
+                                            <small>Usted es, ${usuario.cargo.nombreCargo} </small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -95,13 +103,12 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                          <!--  <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-                       
-                          <br><br>
-                        
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+
+                            <br><br>
                         </div>
                         <div class="pull-left info">
-                            <p>Bienvenido,  ${usuario.nombreUsuario} </p>
+                            <p>Bienvenido,${usuario.nombreUsuario} </p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
@@ -123,8 +130,8 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li ><a href="#"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
-                        <li class="treeview active">
+                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+                        <li class="treeview">
                             <a href="#"><i class="glyphicon glyphicon-th-large"></i> <span>Registros</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -137,9 +144,8 @@
                                 <li><a href="#"><i class="fa fa-users"></i>Clientes</a></li>
                                 <li><a href="#"><i class="fa fa-truck"></i>Proveedores</a></li>
                                 <li><a href=""><i class="fa fa-user-plus"></i>Empleados</a></li>
-                                <li class="active"><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Usuarios</a></li>
+                                <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Usuarios</a></li>
                             </ul>
-
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Mantenimientos</span>
@@ -148,9 +154,9 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
-                                <li><a href="#"><i class="fa fa-tags"></i>Administrar Ventas</a></li>
-                                <li class="active"><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
+                                <li><a href=""><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
+                                <li><a href=""><i class="fa fa-tags"></i>Administrar Ventas</a></li>
+                                <li><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -172,100 +178,89 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>Página usuarios</h1>
-                </section>
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <a href="srvUsuario?accion=nuevo" class="btn btn-success">
-                        <i class="fa fa-plus"></i> Nuevo usuario </a>
-
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Usuarios</li>
-                    </ol>
-                </section>
-
-                <section class="content">
-                    <div class="box">    
-                        <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Usuarios</h3>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
                         </div>
-                        <div class="box-body">
-                            <div class="table-responsive" >                                 
-                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaUsuarios" class="display">
-                                    <thead>
-                                        <tr>
-                                            <th>IDUsuario</th>
-                                            <th>Usuario</th>
-                                            <!--<th>Clave</th>-->
-                                            <th>Estado</th>
-                                            <th>Cargo</th>
-                                            <th>Acciones</th> 
-                                        </tr>
-                                    </thead>
-                                    <c:forEach var="user" items="${usuarios}" varStatus="iteracion">  <!--ese usaurio viene de el listado usuario en tu servlet-->                                                  
-                                        <tr>
-                                            <!--el nombre de ese nombreUsuario es igual a los atributos de la clase-->
-                                            <td>${iteracion.index + 1}</td>
-                                            <td>${user.nombreUsuario}</td>
-                                            <!--<td>{user.clave}</td>-->
-                                            <c:if test="${user.estado == true}">
-                                                <td><span class="badge bg-green active">Usuario Activo</span></td> 
-                                            </c:if>
-                                            <c:if test="${user.estado == false}">
-                                                <td><span class="badge bg-red active">Usuario Inactivo</span></td> 
-                                            </c:if>
-                                            <td>${user.cargo.nombreCargo}</td>
-                                            <td><a href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="leerUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
-                                                        <i class="fa fa-pencil"></i></button></a>
-                                                <!-- DESACTIVAR / ACTIVAR USUARIOS -->
-                                                <c:choose>
-                                                    <c:when test="${user.estado == true}">
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="desactivarUsuario" href="srvUsuario?cambiar=desactivar&cod=${user.id_usuario}" class="btn btn-danger"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
-                                                            <i class="fa fa-remove"></i></a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="activarUsuario" href="srvUsuario?cambiar=activar&cod=${user.id_usuario}" class="btn btn-primary" data-toggle="tooltip" title="Activar" data-original-title="Activar">
-                                                            <i class="glyphicon glyphicon-eye-open"></i></a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                <!-- ELIMINAR USUARIOS -->
-                                                <input type="hidden" id="codigo" value="${user.id_usuario}">
-                                                <a id="deleteUser" href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="eliminarUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-danger" data-toggle="tooltip"  title="Eliminar" data-original-title="Eliminar">
-                                                        <i class="fa fa-trash"></i></button></a>
-
-                                            </td>
-                                        </tr>                                                    
-                                    </c:forEach>                                               
-                                </table>
+                        <div class="col-md-3 hidden-xs"></div>
+                        <div class="col-xs-2 col-md-1">
+                        </div>
+                        <div class="col-xs-10 col-md-5 ">
+                            <div class="btn-group pull-right">
+                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
+                                    <i class="fa fa-align-justify"></i> Ver listado</a>                                              
                             </div>
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <!--Pie de página-->
-                        </div>
-                        <!-- /.box-footer-->
                     </div>
                 </section>
-                <!-- /.content -->
+                <section class="content">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-edit"></i> <h3 class="box-title">Registrar Nuevo Usuario</h3>  
+                        </div>
+                        <form class="form-horizontal" action="srvUsuario?accion=registrar" method="post">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nombre Usuario</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" name="txtNombre" maxlength="10"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Clave</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <input id="nombre" type="password" class="form-control" placeholder="Ingrese su clave" name="txtClave" maxlength="10"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Cargo</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                                        <select class="form-control"  name="cboCargo" autofocus=""  required="">
+                                            <option value="0">Seleccione un cargo</option>
+                                            <!--el cargos de aqui abajo solo es un nombre que se relaciona con el
+                                             car de la parte del servlet-->
+                                            <c:forEach items="${cargos}" var="car">
+                                                <option value="${car.codigo}"  
+                                                        <c:if test="${car.codigo == 
+                                                                      usuario.cargo.codigo}">
+                                                              selected
+                                                        </c:if>
+                                                        >${car.nombreCargo}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="chkEstado" checked=""> Activo
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="reset" class="btn btn-danger"><i class="fa fa-close red"></i> Cancelar</button>
+                                <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success"><i class="fa fa-floppy-o"></i> Registrar</button>
+
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </section> 
+
             </div>
-
-
-            
-            
-            
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
-            
+
+
 
             <div class="control-sidebar-bg"></div>
         </div>
@@ -279,15 +274,37 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
-        <script src="swetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="js/funcionesUsuario.js" type="text/javascript"></script>
+
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
              user experience. -->
+
+        <!-- ESTE ES EL CODIGO DEL CHATBOT DE PRUEBA -->
+        <script>
+            window.watsonAssistantChatOptions = {
+                integrationID: "422c6e4e-cd37-4281-8050-235168c6b1b2", // The ID of this integration.
+                region: "us-south", // The region your integration is hosted in.
+                serviceInstanceID: "3fb8ae0f-ff6e-4e97-8ff4-66e40dfa0f75", // The ID of your service instance.
+                onLoad: function (instance) {
+                    instance.render();
+                }
+            };
+            setTimeout(function () {
+                const t = document.createElement('script');
+                t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+                document.head.appendChild(t);
+            });
+        </script>
+
+
     </body>
 </html>
+
 <%
     } else {
-        response.sendRedirect("identificar.jsp");
+
+        response.sendRedirect("Identificar.jsp");
     }
+
+
 %>

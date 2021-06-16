@@ -5,9 +5,11 @@
  */
 package Controlador;
 
+import Modelo.DAOCARGO;
 import Modelo.DAOUSUARIO;
 import Modelo.DAOVALEDEINGRESO;
 import Modelo.Producto;
+import Modelo.cargo;
 import Modelo.usuario;
 import Modelo.valeIngreso;
 import java.io.IOException;
@@ -39,12 +41,32 @@ public class srvUsuario extends HttpServlet {
                     case "listarUsuarios":
                         listarUsuarios(request, response);
                         break;
+
+                    case "registrar":
+                        registrarUsuario(request, response);
+                        break;
+
                     case "listarProductos":
                         listarProductos(request, response);
                         break;
-                    case "listarValeIngreso":    
+                    case "listarValeIngreso":
                         listarValeIngreso(request, response);
                         break;
+                    case "nuevo":
+                        presentarFormulario(request, response);
+                        break;
+
+                    case "leerUsuario":
+                        presentarUsuario(request, response);
+                        break;
+
+                    case "actualizarUsuario":
+                        actualizarUsuario(request, response);
+                        break;
+                    case "eliminarUsuario":
+                        eliminarUsuario(request, response);
+                        break;
+
                     default:
                         response.sendRedirect("Identificar.jsp");
 
@@ -128,63 +150,51 @@ public class srvUsuario extends HttpServlet {
     }
 
     private void listarUsuarios(HttpServletRequest request, HttpServletResponse response) {
-    
+
         DAOUSUARIO dao = new DAOUSUARIO();
         List<usuario> usus = null;
-        
+
         try {
             usus = dao.listarUsuarios();
-            request.setAttribute("usuarios",usus);
+            request.setAttribute("usuarios", usus);
         } catch (Exception e) {
-            
-            request.setAttribute("msje","No se pudo listar los usuarios"+e.getMessage());
-        }
-        finally{
-            dao=null;
+
+            request.setAttribute("msje", "No se pudo listar los usuarios" + e.getMessage());
+        } finally {
+            dao = null;
         }
         try {
             this.getServletConfig().getServletContext()
-                      .getRequestDispatcher("/Vistas/usuarios.jsp").forward(request, response);
+                    .getRequestDispatcher("/Vistas/usuarios.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.setAttribute("msje", "No se pudo realizar la peticion"+ex.getMessage());
+            request.setAttribute("msje", "No se pudo realizar la peticion" + ex.getMessage());
         }
-        
-        
-        
-        
-        
+
     }
-    
-    
-    
+
     private void listarProductos(HttpServletRequest request, HttpServletResponse response) {
-    
+
         DAOUSUARIO dao = new DAOUSUARIO();
         List<Producto> produ = null;
-        
+
         try {
             produ = dao.listarProductos();
-            request.setAttribute("Productos",produ);
+            request.setAttribute("Productos", produ);
         } catch (Exception e) {
-            
-            request.setAttribute("msje","No se pudo listar los Productos"+e.getMessage());
-        }
-        finally{
-            dao=null;
+
+            request.setAttribute("msje", "No se pudo listar los Productos" + e.getMessage());
+        } finally {
+            dao = null;
         }
         try {
             this.getServletConfig().getServletContext()
-                      .getRequestDispatcher("/Vistas/productos.jsp").forward(request, response);
+                    .getRequestDispatcher("/Vistas/productos.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.setAttribute("msje", "No se pudo realizar la peticion"+ex.getMessage());
+            request.setAttribute("msje", "No se pudo realizar la peticion" + ex.getMessage());
         }
-        
-        
-        
-        
-        
+
     }
-    
+
     /*
     private void mostrarValeingreso(HttpServletRequest request, HttpServletResponse response){
         
@@ -199,44 +209,183 @@ public class srvUsuario extends HttpServlet {
         
         
     }
-    */
-
+     */
     private void listarValeIngreso(HttpServletRequest request, HttpServletResponse response) {
-       DAOVALEDEINGRESO dao = new DAOVALEDEINGRESO();
-       List<valeIngreso> vale1 = null;
-       try
-       {
-          vale1 = dao.listarValeIngreso();
-          request.setAttribute("valesdeingreso", vale1);
-           
-           
-       
-       }catch(Exception ex)
-       {
-       
-           request.setAttribute("msje", "No se listo los vales de ingreso" + ex.getMessage());
-           
-       }finally
-       {
-          dao = null;
-       }
-       try
-       {
-           this.getServletConfig().getServletContext()
-                   .getRequestDispatcher("/Vistas/ValedeIngreso.jsp").forward(request, response); ;
-           
-       }    
-       catch(Exception x)
-       {
-           request.setAttribute("msj", "no se relizo la peticion" + x.getMessage());
-       }    
+        DAOVALEDEINGRESO dao = new DAOVALEDEINGRESO();
+        List<valeIngreso> vale1 = null;
+        try {
+            vale1 = dao.listarValeIngreso();
+            request.setAttribute("valesdeingreso", vale1);
+
+        } catch (Exception ex) {
+
+            request.setAttribute("msje", "No se listo los vales de ingreso" + ex.getMessage());
+
+        } finally {
+            dao = null;
+        }
+        try {
+            this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/Vistas/ValedeIngreso.jsp").forward(request, response);;
+
+        } catch (Exception x) {
+            request.setAttribute("msj", "no se relizo la peticion" + x.getMessage());
+        }
+
+    }
+
+    private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            this.cargarCargos(request);
+            this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/Vistas/nuevoUsuario.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo cargar la vista");
+        }
+
+    }
+
+    private void cargarCargos(HttpServletRequest request) {
+        DAOCARGO dao = new DAOCARGO();
+        List<cargo> car = null;
+        try {
+            car = dao.listarCargos();
+            request.setAttribute("cargos", car);//en esta parte del codigo quiere decir lo de car es ahora cargos y ese cargos lo encontraras en la parte del servlet
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo cargar los cargos :( " + e.getMessage());
+        } finally {
+            car = null;
+            dao = null;
+        }
+    }
+
+    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) {
+
+        DAOUSUARIO daoUsu;
+        usuario usu = null;
+        cargo carg;
+        if (request.getParameter("txtNombre") != null
+                && request.getParameter("txtClave") != null
+                && request.getParameter("cboCargo") != null) {
+
+            usu = new usuario();
+            usu.setNombreUsuario(request.getParameter("txtNombre"));
+            usu.setClave(request.getParameter("txtClave"));
+            carg = new cargo();
+            carg.setCodigo(Integer.parseInt(request.getParameter("cboCargo")));
+            usu.setCargo(carg);
+            if (request.getParameter("chkEstado") != null) {
+                usu.setEstado(true);
+            } else {
+                usu.setEstado(false);
+            }
+            daoUsu = new DAOUSUARIO();
+            try {
+                daoUsu.registrarUsuarios(usu);
+                response.sendRedirect("srvUsuario?accion=listarUsuarios");
+            } catch (Exception e) {
+                request.setAttribute("msje",
+                        "No se pudo registrar el usuario" + e.getMessage());
+                request.setAttribute("usuario", usu);
+                this.presentarFormulario(request, response);
+            }
+        }
+
+    }
+
+    private void presentarUsuario(HttpServletRequest request, HttpServletResponse response) {
+        DAOUSUARIO dao;
+        usuario usus;
+        if (request.getParameter("cod") != null) {
+            usus = new usuario();
+            usus.setId_usuario(Integer.parseInt(request.getParameter("cod")));
+
+            dao = new DAOUSUARIO();
+            try {
+                usus = dao.leerUsuario(usus);
+                if (usus != null) {
+                    request.setAttribute("usuario", usus);
+                } else {
+                    request.setAttribute("msje", "No se encontró el usuario");
+                }
+            } catch (Exception e) {
+                request.setAttribute("msje", "No se pudo acceder a la base de datos" + e.getMessage());
+            }
+        } else {
+            request.setAttribute("msje", "No se tiene el parámetro necesario");
+        }
+        try {
+            this.cargarCargos(request);
+            this.getServletConfig().getServletContext().
+                    getRequestDispatcher("/Vistas/actualizarUsuario.jsp"
+                    ).forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo realizar la operacion" + e.getMessage());
+        }
+    }
+
+    private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response) {
+
+        DAOUSUARIO daoUsu;
+        usuario usus = null;
+        cargo car;
+
+        if (request.getParameter("hCodigo") != null
+                && request.getParameter("txtNombre") != null
+                && request.getParameter("txtClave") != null
+                && request.getParameter("cboCargo") != null) {
+
+            usus = new usuario();
+            usus.setId_usuario(Integer.parseInt(request.getParameter("hCodigo")));
+            usus.setNombreUsuario(request.getParameter("txtNombre"));
+            usus.setClave(request.getParameter("txtClave"));
+            car = new cargo();
+            car.setCodigo(Integer.parseInt(request.getParameter("cboCargo")));
+            usus.setCargo(car);
+            if (request.getParameter("chkEstado") != null) {
+                usus.setEstado(true);
+            } else {
+                usus.setEstado(false);
+            }
+            daoUsu = new DAOUSUARIO();
+            try {
+                daoUsu.actualizarUsuarios(usus);
+                response.sendRedirect("srvUsuario?accion=listarUsuarios");
+            } catch (Exception e) {
+                request.setAttribute("msje",
+                        "No se pudo actualizar el usuario" + e.getMessage());
+                request.setAttribute("usuario", usus);
+
+            }
+            try {
+                this.cargarCargos(request);
+                this.getServletConfig().getServletContext().
+                        getRequestDispatcher("/Vistas/actualizarUsuario.jsp"
+                        ).forward(request, response);
+            } catch (Exception ex) {
+                request.setAttribute("msje", "No se pudo realizar la operacion" + ex.getMessage());
+            }
+        }
+
+    }
+
+    private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response) {
+         DAOUSUARIO dao = new DAOUSUARIO();
+        usuario usus = new usuario();
+        if (request.getParameter("cod")!=null){
+            usus.setId_usuario(Integer.parseInt(request.getParameter("cod")));
+            try{
+                dao.eliminarUsuario(usus);
+                response.sendRedirect("srvUsuario?accion=listarUsuarios");
+            }catch(Exception e){
+                request.setAttribute("msje", "No se pudo acceder a la base de datos" + e.getMessage());
+            }
+        }else{
+            request.setAttribute("msje", "No se encontro el usuario");
+        }
         
         
     }
-    
-    
-    
-    
-    
 
 }
