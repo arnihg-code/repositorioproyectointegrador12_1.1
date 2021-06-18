@@ -51,7 +51,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>BL</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema </b>Inventario</span>
+                    <span class="logo-lg"><b>Sistema </b>Almacen</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -157,6 +157,7 @@
                                 <li><a href=""><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
                                 <li><a href=""><i class="fa fa-tags"></i>Administrar Ventas</a></li>
                                 <li><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
+                                <li><a href="srvUsuario?accion=listarValeSalida"><i class="fa fa-address-card"></i>Vale de Salida</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -294,7 +295,7 @@
                 t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
                 document.head.appendChild(t);
             });
-        </script>
+        </script>4
 
 
     </body>

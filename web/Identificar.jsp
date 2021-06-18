@@ -30,7 +30,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Sistema </b>Inventario</a>
+    <a href="#"><b>Sistema </b>Almacen</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

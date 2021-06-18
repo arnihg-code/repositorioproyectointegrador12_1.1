@@ -1,19 +1,28 @@
-44444444<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+
+
+<%--esta sera la vista del administrador--%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Conexion" %>
-<%@page import="Modelo.DAOUSUARIO" %>
+<%@page import="Modelo.DAOVALESALIDA" %>
 <%@page import="Modelo.Producto" %>
 <%@page import="Modelo.Proveedores" %>
-<%@page import="Modelo.Conexion2" %>
+<%@page import="Modelo.ValeSalida" %>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--Ahora verificamos la sesion--%>
 <%
     if (session.getAttribute("usuario") != null) {
 %>
+
+
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sistema Inventario| Inicio</title>
+        <title>Sistema Bodega| Inicio</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -23,8 +32,6 @@
         <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
         <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
-        <link href="swetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
-
 
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
@@ -43,7 +50,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>BL</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema </b>Almacen</span>
+                    <span class="logo-lg"><b>Sistema </b>Inventario</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -70,8 +77,8 @@
                                         <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
 
                                         <p>                    
-                                            Bienvenido - ${usuario.nombreUsuario}
-                                            <small>Usted es,${usuario.cargo.nombreCargo} </small>
+                                            Bienvenido - ${vendedor.nombreUsuario}
+                                            <small>Usted es, ${usuario.cargo.nombreCargo} </small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -95,13 +102,12 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <!--  <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
 
                             <br><br>
-
                         </div>
                         <div class="pull-left info">
-                            <p>Bienvenido,  ${usuario.nombreUsuario} </p>
+                            <p>Bienvenido,${usuario.nombreUsuario} </p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
@@ -137,9 +143,8 @@
                                 <li><a href="#"><i class="fa fa-users"></i>Clientes</a></li>
                                 <li><a href="#"><i class="fa fa-truck"></i>Proveedores</a></li>
                                 <li><a href=""><i class="fa fa-user-plus"></i>Empleados</a></li>
-                                <li class="active"><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Usuarios</a></li>
+                                <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Usuarios</a></li>
                             </ul>
-
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Mantenimientos</span>
@@ -148,10 +153,10 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
-                                <li><a href="#"><i class="fa fa-tags"></i>Administrar Ventas</a></li>
+                                <li><a href=""><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
+                                <li><a href=""><i class="fa fa-tags"></i>Administrar Ventas</a></li>
                                 <li><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
-                                <li><a href="srvUsuario?accion=listarValeSalida"><i class="fa fa-address-card"></i>Vale de Salida</a></li>
+                                <li class="active"><a href="srvUsuario?accion=listarValeSalida"><i class="fa fa-address-card"></i>Vale de Salida</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -171,79 +176,52 @@
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
+            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>Página usuarios</h1>
+                    <h1>Página Vale de Salida</h1>
                 </section>
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <a href="srvUsuario?accion=nuevo" class="btn btn-success">
-                        <i class="fa fa-plus"></i> Nuevo usuario </a>
+                    <a href="" class="btn btn-success">
+                        <i class="fa fa-plus"></i> Nuevo </a>
 
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Usuarios</li>
+                        <li class="active">Vales de Salida</li>
                     </ol>
                 </section>
 
                 <section class="content">
                     <div class="box">    
                         <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Usuarios</h3>
+                            <h3 class="box-title">Listado de Vales de Salida</h3>
                         </div>
                         <div class="box-body">
                             <div class="table-responsive" >                                 
-                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaUsuarios" class="display">
+                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaValeSalida" class="display">
                                     <thead>
                                         <tr>
-                                            <th>IDUsuario</th>
-                                            <th>Usuario</th>
-                                            <!--<th>Clave</th>-->
-                                            <th>Estado</th>
-                                            <th>Cargo</th>
-                                            <th>Acciones</th> 
+                                            <th>Codigo Vale Salida</th>
+                                            <th>Concepto</th>
+                                            <th>Proveedores</th>
+                                            <th>Detalle de Vale Salida</th>
+                                            <th>Observacion</th>
+                                            <th>Fecha</th> 
+
                                         </tr>
                                     </thead>
-                                    <c:forEach var="user" items="${usuarios}" varStatus="iteracion">  <!--ese usaurio viene de el listado usuario en tu servlet-->                                                  
+                                    <c:forEach var="user" items="${valesdesalidaa}" varStatus="iteracion">  <!--ese usaurio viene de el listado usuario en tu servlet-->                                                  
                                         <tr>
                                             <!--el nombre de ese nombreUsuario es igual a los atributos de la clase-->
-                                            <td>${iteracion.index + 1}</td>
-                                            <td>${user.nombreUsuario}</td>
-                                            <!--<td>{user.clave}</td>-->
-                                            <c:if test="${user.estado == true}">
-                                                <td><span class="badge bg-green active">Usuario Activo</span></td> 
-                                            </c:if>
-                                            <c:if test="${user.estado == false}">
-                                                <td><span class="badge bg-red active">Usuario Inactivo</span></td> 
-                                            </c:if>
-                                            <td>${user.cargo.nombreCargo}</td>
-                                            <td><a href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="leerUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
-                                                        <i class="fa fa-pencil"></i></button></a>
-                                                <!-- DESACTIVAR / ACTIVAR USUARIOS -->
-                                                <c:choose>
-                                                    <c:when test="${user.estado == true}">
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="desactivarUsuario" href="srvUsuario?cambiar=desactivar&cod=${user.id_usuario}" class="btn btn-danger"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
-                                                            <i class="fa fa-remove"></i></a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                        <input type="hidden" id="item" value="${user.id_usuario}">
-                                                        <a id="activarUsuario" href="srvUsuario?cambiar=activar&cod=${user.id_usuario}" class="btn btn-primary" data-toggle="tooltip" title="Activar" data-original-title="Activar">
-                                                            <i class="glyphicon glyphicon-eye-open"></i></a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                <!-- ELIMINAR USUARIOS -->
-                                                <input type="hidden" id="codigo" value="${user.id_usuario}">
-                                                <a id="deleteUser" href="<c:url value="srvUsuario">
-                                                       <c:param name="accion" value="eliminarUsuario" />
-                                                       <c:param name="cod" value="${user.id_usuario}" />
-                                                   </c:url>"><button type="button" class="btn btn-danger" data-toggle="tooltip"  title="Eliminar" data-original-title="Eliminar">
-                                                        <i class="fa fa-trash"></i></button></a>
+                                            <td>${user.idValeSalida}</td>
+                                            <td>${user.idConcepto}</td>
+                                            <td>${user.idProveedores}</td>
+                                            <td>${user.idDetalleValeSalida}</td>
+                                            <td>${user.observacion}</td>
+                                            <td>${user.fecha}</td>
 
-                                            </td>
+
                                         </tr>                                                    
                                     </c:forEach>                                               
                                 </table>
@@ -264,8 +242,10 @@
 
 
             <!-- /.content-wrapper -->
+            <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
+
 
 
             <div class="control-sidebar-bg"></div>
@@ -280,12 +260,10 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
-        <script src="swetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="js/funcionesUsuario.js" type="text/javascript"></script>
+
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
              user experience. -->
-
 
         <script>
             window.watsonAssistantChatOptions = {
@@ -304,11 +282,14 @@
         </script>
 
 
-
     </body>
 </html>
+
 <%
     } else {
-        response.sendRedirect("identificar.jsp");
+
+        response.sendRedirect("Identificar.jsp");
     }
+
+
 %>

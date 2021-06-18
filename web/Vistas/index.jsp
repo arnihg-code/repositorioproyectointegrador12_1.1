@@ -49,7 +49,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>BL</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema </b>Inventario</span>
+                    <span class="logo-lg"><b>Sistema </b>Almacen</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -155,6 +155,7 @@
                                 <li><a href=""><i class="fa fa-cart-arrow-down"></i>Nueva Venta</a></li>
                                 <li><a href=""><i class="fa fa-tags"></i>Administrar Ventas</a></li>
                                 <li><a href="srvUsuario?accion=listarValeIngreso"><i class="fa fa-address-card"></i>Vale de ingreso</a></li>
+                                <li><a href="srvUsuario?accion=listarValeSalida"><i class="fa fa-address-card"></i>Vale de salida</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -165,6 +166,12 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-bar-chart"></i>Reportes Ventas</a></li>
+                            </ul>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-bar-chart"></i>Stock mínimo</a></li>
+                            </ul>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-bar-chart"></i>Kardex Valorizado</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -278,6 +285,7 @@
              user experience. -->
 
         <!-- ESTE ES EL CODIGO DEL CHATBOT DE PRUEBA -->
+
         <script>
             window.watsonAssistantChatOptions = {
                 integrationID: "422c6e4e-cd37-4281-8050-235168c6b1b2", // The ID of this integration.
@@ -293,7 +301,6 @@
                 document.head.appendChild(t);
             });
         </script>
-
 
     </body>
 </html>

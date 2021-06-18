@@ -45,7 +45,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>BL</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Sistema </b>Bodega</span>
+                    <span class="logo-lg"><b>Sistema </b>Almacen</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -97,9 +97,9 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                           <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-                        
-                           <br><br>
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+
+                            <br><br>
                         </div>
                         <div class="pull-left info">
                             <p>Bienvenido, ${vendedor.nombreUsuario}</p>
@@ -143,8 +143,8 @@
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
-               <!--a partir de aqui hice el cambio con el usuarios de la parte del admin-->
-              <div class="content-wrapper">
+            <!--a partir de aqui hice el cambio con el usuarios de la parte del admin-->
+            <div class="content-wrapper">
                 <section class="content-header">
                     <h1>Vales de Ingreso</h1>
                 </section>
@@ -179,27 +179,27 @@
                                     </thead>
                                     <c:forEach var="user" items="${Productos}" varStatus="iteracion">  <!--ese usaurio viene de el listado usuario en tu servlet-->                                                  
                                         <tr>
-                                            
-                                             
-                                             
-                                           
+
+
+
+
                                             <td>${user.idProducto}</td>
                                             <!--<td>{user.clave}</td>-->
-                                            
-                                          
+
+
                                             <td>${user.idCategoria}</td>
-                                            
+
                                             <td>${user.desProducto}</td>
-                                             <td>${user.stockProducto}</td>
+                                            <td>${user.stockProducto}</td>
                                             <td>${user.precioProducto}</td>
-                                            
-                                         
+
+
                                         </tr>                                                    
                                     </c:forEach>                                               
                                 </table>
-                                
-                                
-                                
+
+
+
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -211,15 +211,15 @@
                 </section>
                 <!-- /.content -->
             </div>
-            
-            
+
+
             <!-- /.content-wrapper -->
 
-            
-            
-            
+
+
+
             <!-- Main Footer -->
-         
+
 
             <div class="control-sidebar-bg"></div>
         </div>
@@ -237,13 +237,32 @@
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
              user experience. -->
+
+        <script>
+            window.watsonAssistantChatOptions = {
+                integrationID: "422c6e4e-cd37-4281-8050-235168c6b1b2", // The ID of this integration.
+                region: "us-south", // The region your integration is hosted in.
+                serviceInstanceID: "3fb8ae0f-ff6e-4e97-8ff4-66e40dfa0f75", // The ID of your service instance.
+                onLoad: function (instance) {
+                    instance.render();
+                }
+            };
+            setTimeout(function () {
+                const t = document.createElement('script');
+                t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+                document.head.appendChild(t);
+            });
+        </script>
+
+
+
     </body>
 </html>
 
 <%
- } else {
-        
+    } else {
+
         response.sendRedirect("Identificar.jsp");
     }
-    
+
 %>

@@ -8,10 +8,12 @@ package Controlador;
 import Modelo.DAOCARGO;
 import Modelo.DAOUSUARIO;
 import Modelo.DAOVALEDEINGRESO;
+import Modelo.DAOVALESALIDA;
 import Modelo.Producto;
 import Modelo.cargo;
 import Modelo.usuario;
 import Modelo.valeIngreso;
+import Modelo.ValeSalida;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -66,7 +68,10 @@ public class srvUsuario extends HttpServlet {
                     case "eliminarUsuario":
                         eliminarUsuario(request, response);
                         break;
-
+                    case "listarValeSalida":
+                        listarValeSalida(request, response);
+                        break;
+                        
                     default:
                         response.sendRedirect("Identificar.jsp");
 
@@ -384,6 +389,36 @@ public class srvUsuario extends HttpServlet {
         }else{
             request.setAttribute("msje", "No se encontro el usuario");
         }
+        
+        
+    }
+
+    private void listarValeSalida(HttpServletRequest request, HttpServletResponse response) {
+        
+        
+        DAOVALESALIDA dao = new DAOVALESALIDA();
+        List<ValeSalida> vale1 = null;
+        try {
+            vale1 = dao.listarValedeSalida();
+            request.setAttribute("valesdesalidaa", vale1);
+
+        } catch (Exception ex) {
+
+            request.setAttribute("msje", "No se listo los vales de salida" + ex.getMessage());
+
+        } finally {
+            dao = null;
+        }
+        try {
+            this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/Vistas/ValedeSalida.jsp").forward(request, response);
+
+        } catch (Exception x) {
+            request.setAttribute("msj", "no se relizo la peticion" + x.getMessage());
+        }
+        
+        
+        
         
         
     }
