@@ -6,14 +6,19 @@
 package Controlador;
 
 import Modelo.DAOCARGO;
+import Modelo.DAOCONCEPTO;
+import Modelo.DAOPRODUCTO;
+import Modelo.DAOPROVEEDORES;
 import Modelo.DAOUSUARIO;
 import Modelo.DAOVALEDEINGRESO;
 import Modelo.DAOVALESALIDA;
 import Modelo.Producto;
+import Modelo.Proveedores;
 import Modelo.cargo;
 import Modelo.usuario;
 import Modelo.valeIngreso;
 import Modelo.ValeSalida;
+import Modelo.concepto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -71,6 +76,16 @@ public class srvUsuario extends HttpServlet {
                     case "listarValeSalida":
                         listarValeSalida(request, response);
                         break;
+                        
+                    case "nuevovalesalida":
+                        presentarformulariovale(request, response);
+                        break;
+                        
+                    case "registrarvalesalida":
+                        registrarvalesalida(request, response);
+                        break;
+                        
+                     
                         
                     default:
                         response.sendRedirect("Identificar.jsp");
@@ -422,5 +437,195 @@ public class srvUsuario extends HttpServlet {
         
         
     }
+
+    private void presentarformulariovale(HttpServletRequest request, HttpServletResponse response) {
+        
+        try
+        {
+             this.cargarconceptos(request);
+             this.cargarproveedores(request);
+             this.cargarproductos(request);
+             this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/Vistas/nuevovalesalida.jsp").forward(request, response);
+            
+            
+            
+        
+        }catch(Exception ex)    
+        {
+         
+               request.setAttribute("msj", "no se cargo la vista vale salida" + ex.getMessage());
+        }
+     
+    
+    
+    }
+
+    
+    
+    private void cargarconceptos(HttpServletRequest request){
+    
+        DAOCONCEPTO dao = new DAOCONCEPTO();
+        List<concepto> con = null; 
+        try
+        {
+        
+          con = dao.listarconcepto();
+          request.setAttribute("conceptos", con);
+        
+        }
+        catch(Exception e)
+        {
+            
+             request.setAttribute("msj", "no se cargo los conceptos" + e.getMessage());
+            
+            
+        }finally{
+        
+           con = null; 
+           dao = null;
+        
+        }
+                
+                
+                
+    }
+            
+    
+    
+    
+    private void cargarproveedores(HttpServletRequest request)
+    {
+    
+        DAOPROVEEDORES dao = new DAOPROVEEDORES();
+        List<Proveedores> prov = null;
+        try
+        {
+           prov = dao.listarproveedores();
+           request.setAttribute("proveedores", prov);
+           
+        }    
+        catch(Exception e)
+        {
+        
+              request.setAttribute("msj", "no se cargo los proveedores" + e.getMessage());
+        
+        }finally
+        {
+          prov = null;
+          dao = null;
+        
+        }    
+        
+    
+    }        
+            
+    
+    
+    public void cargarproductos(HttpServletRequest request){
+    
+    
+        DAOPRODUCTO dao = new DAOPRODUCTO();
+        List<Producto> product = null;
+        try
+        {
+        
+            product = dao.listarproducto();
+            request.setAttribute("productos", product);
+        
+        
+        
+        }
+        catch(Exception e)
+        {
+        
+          request.setAttribute("msj", "no se cargo los productos" + e.getMessage());
+        
+        
+        }finally{
+        
+         product = null;
+         dao = null;
+        
+        }
+            
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    private void registrarvalesalida(HttpServletRequest request, HttpServletResponse response) {
+        
+        
+       DAOVALESALIDA daovale;
+       ValeSalida valessalida = null;
+       concepto con;
+       Proveedores prov;
+       Producto products;
+       
+       
+        if (request.getParameter("txtidValeSalida") != null
+                && request.getParameter("cboConcepto") != null
+                && request.getParameter("cboProveedor") != null
+                && request.getParameter("cboProducto") != null 
+                && request.getParameter("txtobservacion") != null)
+        
+        
+        {
+
+            valessalida = new ValeSalida();
+            valessalida.setIdValeSalida(Integer.parseInt(request.getParameter("txtidValeSalida")));
+            
+            
+            con = new concepto();
+            con.setIdConcepto(Integer.parseInt(request.getParameter("cboConcepto")));
+            valessalida.setConcepto(con);
+            
+            prov = new Proveedores();
+            prov.setIdProveedores(Integer.parseInt(request.getParameter("cboProveedor")));
+            valessalida.setNombresProveedor(prov);
+            
+            products = new Producto();
+            products.setIdProducto(Integer.parseInt(request.getParameter("cboProducto")));
+            valessalida.setNomProducto(products);
+            
+            valessalida.setObservacion(request.getParameter("txtobservacion"));
+          
+            daovale = new DAOVALESALIDA();
+            try {
+                daovale.registrarvalesalida(valessalida);
+                response.sendRedirect("srvUsuario?accion=listarValeSalida");
+            } catch (Exception e) {
+                request.setAttribute("msje",
+                        "No se pudo registrar el vale de salida" + e.getMessage());
+                request.setAttribute("ValeSalida", valessalida);
+                this.presentarformulariovale(request, response);
+            }
+        }
+       
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

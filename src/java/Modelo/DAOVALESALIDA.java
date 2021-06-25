@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author SUITE
  */
-public class DAOVALESALIDA {
+public class DAOVALESALIDA extends Conexion2{
     
     
     
@@ -28,7 +28,12 @@ public class DAOVALESALIDA {
         List<ValeSalida> valeSalidaa;
         ValeSalida vale;
         ResultSet rs = null;
-        String sql = "select * from ValeSalida;";
+        String sql = "select v.idValeSalida,c.descripcion, p.nombreProveedor, o.desProducto, " +
+                     "v.observacion,v.fecha " +
+                     " from ValeSalida v join concepto c " +
+                     " on v.idConcepto = c.idConcepto " +
+                     " join proveedores p on p.idProveedores = v.idProveedores " +
+                     " join producto o on o.idProducto = v.idProducto ";
 
         con = new Conexion();
         try {
@@ -46,9 +51,12 @@ public class DAOVALESALIDA {
                 
                 vale = new ValeSalida();
                 vale.setIdValeSalida(rs.getInt("idValeSalida"));
-                vale.setIdConcepto(rs.getInt("idConcepto"));
-                vale.setIdProveedores(rs.getInt("idProveedores"));
-                vale.setIdDetalleValeSalida(rs.getInt("idDetalleValeSalida"));
+                vale.setConcepto(new concepto());
+                vale.getConcepto().setDescripcion(rs.getString("descripcion"));
+                vale.setNombresProveedor(new Proveedores());
+                vale.getNombresProveedor().setNombreProveedor(rs.getString("nombreProveedor"));
+                vale.setNomProducto(new Producto());
+                vale.getNomProducto().setDesProducto(rs.getString("desProducto"));
                 vale.setObservacion(rs.getString("observacion"));
                 vale.setFecha(rs.getString("fecha"));
                 valeSalidaa.add(vale);
@@ -71,6 +79,32 @@ public class DAOVALESALIDA {
 
     
     
+    
+    public void registrarvalesalida(ValeSalida valesalida) throws Exception{
+    
+        String sql;
+        sql="INSERT INTO valesalida (idValeSalida,idConcepto,idProveedores,idProducto,observacion)" +
+            "VALUES (" + valesalida.getIdValeSalida() + "," + valesalida.getConcepto().getIdConcepto() + "," 
+                + valesalida.getNombresProveedor().getIdProveedores() + "," 
+                + valesalida.getNomProducto().getIdProducto() + ",'" + valesalida.getObservacion() + "')" ;
+        
+        try
+        {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+            
+            
+        }
+        catch(Exception e)
+        {
+            this.cerrar(false);
+            throw e;
+        
+        }
+        
+    
+    }
     
     
     

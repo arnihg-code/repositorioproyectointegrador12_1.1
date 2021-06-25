@@ -12,9 +12,9 @@ package Modelo;
 public class ValeSalida {
     
     private int idValeSalida;
-    private int idConcepto;
-    private int idProveedores;
-    private int idDetalleValeSalida;
+    private concepto Concepto;
+    private Proveedores nombresProveedor;
+    private Producto nomProducto;
     private String observacion;
     private String fecha;
 
@@ -26,30 +26,34 @@ public class ValeSalida {
         this.idValeSalida = idValeSalida;
     }
 
-    public int getIdConcepto() {
-        return idConcepto;
+
+    public concepto getConcepto() {
+        return Concepto;
     }
 
-    public void setIdConcepto(int idConcepto) {
-        this.idConcepto = idConcepto;
+    public void setConcepto(concepto Concepto) {
+        this.Concepto = Concepto;
     }
 
-    public int getIdProveedores() {
-        return idProveedores;
+    public Proveedores getNombresProveedor() {
+        return nombresProveedor;
     }
 
-    public void setIdProveedores(int idProveedores) {
-        this.idProveedores = idProveedores;
+    public void setNombresProveedor(Proveedores nombresProveedor) {
+        this.nombresProveedor = nombresProveedor;
     }
 
-    public int getIdDetalleValeSalida() {
-        return idDetalleValeSalida;
+    public Producto getNomProducto() {
+        return nomProducto;
     }
 
-    public void setIdDetalleValeSalida(int idDetalleValeSalida) {
-        this.idDetalleValeSalida = idDetalleValeSalida;
+    public void setNomProducto(Producto nomProducto) {
+        this.nomProducto = nomProducto;
     }
 
+  
+
+     
     public String getObservacion() {
         return observacion;
     }
