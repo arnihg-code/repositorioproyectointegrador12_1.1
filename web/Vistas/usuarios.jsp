@@ -1,4 +1,4 @@
-44444444<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Conexion" %>
 <%@page import="Modelo.DAOUSUARIO" %>
 <%@page import="Modelo.Producto" %>

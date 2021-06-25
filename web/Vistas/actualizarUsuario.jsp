@@ -250,7 +250,7 @@
                     Anything you want
                 </div>
                 <!-- Default to the left
-                <strong>Copyright &copy; 2020 <a href="#">IDAT</a>.</strong> Todos los derechos reservados. -->
+                <strong>Copyright &copy; 2020 <a href="#"></a>.</strong> Todos los derechos reservados. -->
             </footer>
 
             <div class="control-sidebar-bg"></div>
